@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">PetsFragmentMenu</string>
+    <string name="nombre_card">Nombre</string>
+    <string name="huesitos_acum">Huesitos</string>
+    <string name="desarrollador">Román Turrubiates</string>
+    <string name="ciudad">Querétaro, Qro., México</string>
+    <string name="mail">roman.turrubiates@gmail.com</string>
+    <string name="descripcion">Ing. Sistemas Computacionales</string>
+    <string name="nombre_contacto">Nombre</string>
+    <string name="correo_contacto">Dirección de Correo</string>
+    <string name="mensaje_contacto">Mensaje...</string>
+    <string name="boton_enviar">Enviar Correo</string>
+</resources>
