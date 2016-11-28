@@ -8,6 +8,7 @@
     android:background="@color/colorFondo">
 
 
+
     <com.mikhaellopez.circularimageview.CircularImageView
         android:id="@+id/imgPerfil"
         android:layout_width="@dimen/photo_perfil"

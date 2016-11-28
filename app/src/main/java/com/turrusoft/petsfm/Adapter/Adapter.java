@@ -4,6 +4,7 @@ package com.turrusoft.petsfm.Adapter;
  * Created by CFE on 20/11/2016.
  */
 
+import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.turrusoft.petsfm.db.ConstructorMascotas;
 import com.turrusoft.petsfm.pojo.Pets;
 import com.turrusoft.petsfm.R;
 
@@ -20,6 +22,7 @@ import java.util.List;
 public class Adapter extends RecyclerView.Adapter<Adapter.PetsViewHolder>
 {
     private List<Pets> items;
+    Activity activity;
     private int acum;
 
     public static class PetsViewHolder extends RecyclerView.ViewHolder {
@@ -41,9 +44,10 @@ public class Adapter extends RecyclerView.Adapter<Adapter.PetsViewHolder>
         }
     }
 
-    public Adapter(List<Pets> items)
+    public Adapter(List<Pets> items, Activity activity)
     {
         this.items = items;
+        this.activity = activity;
     }
 
     @Override
@@ -63,9 +67,10 @@ public class Adapter extends RecyclerView.Adapter<Adapter.PetsViewHolder>
     @Override
     public void onBindViewHolder(final PetsViewHolder viewHolder, int i)
     {
-        viewHolder.mascota.setImageResource(items.get(i).getMascota());
-        viewHolder.nombre.setText(items.get(i).getNombre());
-        viewHolder.tvlikes.setText(String.valueOf(items.get(i).getLikes()));
+        final Pets pet = items.get(i);
+        viewHolder.mascota.setImageResource(pet.getMascota());
+        viewHolder.nombre.setText(pet.getNombre());
+        viewHolder.tvlikes.setText(String.valueOf(pet.getLikes()));
 
         viewHolder.ivhuesito_like.setTag(viewHolder);
 
@@ -76,7 +81,12 @@ public class Adapter extends RecyclerView.Adapter<Adapter.PetsViewHolder>
             {
 
                 PetsViewHolder acum = (PetsViewHolder) v.getTag();
-                acum.tvlikes.setText(String.valueOf(1 + Integer.parseInt(acum.tvlikes.getText().toString())));
+             //   acum.tvlikes.setText(String.valueOf(1 + Integer.parseInt(acum.tvlikes.getText().toString())));
+
+                ConstructorMascotas constructorMascotas = new ConstructorMascotas(activity);
+                constructorMascotas.darLikeMascota(pet);
+                //acum.tvlikes.setText(Integer.toString(constructorMascotas.obtenerLikesMascota(pet)));
+                viewHolder.tvlikes.setText(Integer.toString(constructorMascotas.obtenerLikesMascota(pet)));
 
             }
         });

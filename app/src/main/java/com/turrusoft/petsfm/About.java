@@ -25,7 +25,6 @@ public class About extends AppCompatActivity
         imgTop.setVisibility(View.INVISIBLE);
 
 
-
         Toolbar ActionBar= (Toolbar)findViewById(R.id.ActionBar);
         setSupportActionBar(ActionBar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

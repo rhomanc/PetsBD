@@ -67,7 +67,7 @@ public class PerfilFragment extends Fragment
     public void  inicializarAdaptador()
     {
         // Crear un nuevo adaptador
-        Adapter adapter = new Adapter(items);
+        Adapter adapter = new Adapter(items, getActivity());
         recycler.setAdapter(adapter);
 
     }
@@ -79,7 +79,7 @@ public class PerfilFragment extends Fragment
 
         for (int i=0;i<=4;i++)
         {
-            items.add(new Pets(R.drawable.perro2, "Dogo", cont));
+            items.add(new Pets(R.drawable.perro2,102,"Dogo", cont));
             cont*=2;
         }
 

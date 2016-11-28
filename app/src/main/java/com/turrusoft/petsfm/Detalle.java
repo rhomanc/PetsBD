@@ -1,5 +1,7 @@
 package com.turrusoft.petsfm;
 
+import android.app.Activity;
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,8 +10,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.turrusoft.petsfm.Adapter.Adapter;
+import com.turrusoft.petsfm.db.ConstructorMascotas;
 import com.turrusoft.petsfm.pojo.Pets;
 
 import java.util.ArrayList;
@@ -22,6 +26,9 @@ public class Detalle extends AppCompatActivity
     private RecyclerView recycler;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager lManager;
+    private Activity activity;
+    //private Context context;
+    ConstructorMascotas constructorMascotas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -45,12 +52,32 @@ public class Detalle extends AppCompatActivity
 
         // Inicializar Animes
         List<Pets> items = new ArrayList<>();
+        ArrayList<Pets> mascotas = new ArrayList<>();
+        ArrayList<Integer> favoritos = new ArrayList<>();
+        constructorMascotas = new ConstructorMascotas(this);
+        favoritos = constructorMascotas.obtenerFavoritos();
 
-        items.add(new Pets(R.drawable.perro4, "Spooky", 5));
-        items.add(new Pets(R.drawable.perro5, "Roco", 10));
-        items.add(new Pets(R.drawable.perro6, "Campeón", 15));
-        items.add(new Pets(R.drawable.perro1, "Firulais", 20));
-        items.add(new Pets(R.drawable.perro2, "Dogo", 25));
+        mascotas = constructorMascotas.leerMascotas();
+        for (int i=0;i<favoritos.size();i++){
+            boolean localizada = false;
+            int j=0;
+            while (j<mascotas.size() && !localizada){
+                Pets pet = new Pets();
+                pet = mascotas.get(j);
+                if (pet.getId_mascota()==favoritos.get(i)){
+                    items.add(pet);
+                    localizada = true;
+                }
+                j++;
+            }
+        }
+
+
+        /*items.add(new Pets(R.drawable.perro4,104, "Spooky", 5));
+        items.add(new Pets(R.drawable.perro5,105, "Roco", 10));
+        items.add(new Pets(R.drawable.perro6,106, "Campeón", 15));
+        items.add(new Pets(R.drawable.perro1,101, "Firulais", 20));
+        items.add(new Pets(R.drawable.perro2,102, "Dogo", 25));*/
 
 
         // Obtener el Recycler
@@ -63,7 +90,7 @@ public class Detalle extends AppCompatActivity
         recycler.setLayoutManager(lManager);
 
         // Crear un nuevo adaptador
-        adapter = new Adapter(items);
+        adapter = new Adapter(items, activity);
         recycler.setAdapter(adapter);
     }
 }
